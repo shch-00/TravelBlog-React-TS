@@ -19,7 +19,11 @@ const PostCard: FC<PostCardProps> = ({ post }) => {
     >
       <div className="post-card__img-content">
         <RetinaImg
-          src={`https://placehold.co/370x300/FFA902/black?text=${post.title}&font=poppins/jpeg`}
+          src={
+            post.photo && typeof post.photo === "string"
+              ? (post.photo as string)
+              : `https://placehold.co/370x300/FFA902/black?text=${post.title}&font=poppins/jpeg`
+          }
           alt={post.title}
           width={370}
           height={300}

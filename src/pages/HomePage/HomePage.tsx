@@ -1,12 +1,15 @@
 import { FC } from "react";
 import { usePosts } from "../../hooks/posts";
 import { ResponsivePageWrapper } from "../../utils/motionConfigurations";
+import { Link } from "react-router-dom";
+import Post from "../../types/Post";
 import PostCard from "../../components/PostCard/PostCard";
 import "./HomePage.css";
-import { Link } from "react-router-dom";
 
 const HomePage: FC = () => {
   const { data: posts, isLoading } = usePosts();
+
+  console.log(posts);
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -16,7 +19,7 @@ const HomePage: FC = () => {
     <ResponsivePageWrapper>
       <div className="home-page">
         <ul className="home-page__posts-list">
-          {posts?.map((post) => (
+          {posts?.map((post: Post) => (
             <li className="home-page__post-item" key={post.id}>
               <PostCard post={post} />
             </li>

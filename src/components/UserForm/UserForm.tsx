@@ -40,16 +40,8 @@ const UserForm: FC<UserFormProps> = ({ title }) => {
     const formData = new FormData(e.target as HTMLFormElement);
     const data = Object.fromEntries(formData);
 
-    console.log(data.photo as File);
-
     if (title === "create-post") {
-      addPost({
-        title: data.title as string,
-        photo: data.photo as File,
-        description: data.description as string,
-        country: data.country as string,
-        city: data.city as string,
-      });
+      addPost(data);
     }
 
     if (title === "login") {
