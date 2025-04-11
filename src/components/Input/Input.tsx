@@ -1,5 +1,5 @@
 import { FC, useState } from "react";
-import "./Input.css";
+import { motion } from "framer-motion";
 
 interface InputProps {
   type?: string;
@@ -10,6 +10,7 @@ interface InputProps {
   short?: boolean;
   required?: boolean;
   defaultValue?: string;
+  error?: string | undefined;
 }
 
 const Input: FC<InputProps> = ({
@@ -20,6 +21,7 @@ const Input: FC<InputProps> = ({
   short = false,
   required = false,
   defaultValue = "",
+  error = undefined,
 }) => {
   const [isFocused, setIsFocused] = useState(false);
   const [value, setValue] = useState<string>(defaultValue);
@@ -44,6 +46,22 @@ const Input: FC<InputProps> = ({
         onFocus={() => setIsFocused(true)}
         onBlur={() => setIsFocused(false)}
       />
+      <motion.span
+        initial={{ opacity: 0 }}
+        animate={{
+          opacity: error
+            ? name === "password" || name === "confirmPassword"
+              ? 1
+              : value === ""
+                ? 1
+                : 0
+            : 0,
+        }}
+        transition={{ duration: 0.3 }}
+        className="custom-input__error"
+      >
+        {error}
+      </motion.span>
     </div>
   );
 };

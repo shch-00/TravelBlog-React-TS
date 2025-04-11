@@ -19,12 +19,8 @@ const PostCard: FC<PostCardProps> = ({ post }) => {
     >
       <div className="post-card__img-content">
         <RetinaImg
-          src={
-            post.photo && typeof post.photo === "string"
-              ? (post.photo as string)
-              : `https://placehold.co/370x300/FFA902/black?text=${post.title}&font=poppins/jpeg`
-          }
-          alt={post.title}
+          src={`https://placehold.co/370x300/FFA902/black?text=${post.title}&font=poppins/jpeg`}
+          alt={post.title as string}
           width={370}
           height={300}
           className="post-card__img"
@@ -36,7 +32,7 @@ const PostCard: FC<PostCardProps> = ({ post }) => {
           <p className="post-card__excerpt">{post.excerpt}</p>
         </div>
         <div className="post-card__inner-bottom">
-          <span className="post-card__place">{`${post?.country ? post?.country + ", " : ""}${post?.city ? post?.city : ""}`}</span>
+          <span className="post-card__place">{`${post.county ? post.county + ", " : ""}${post.city ? post.city : ""}`}</span>
           <Link to={`/${post?.id}`} className="post-card__link">
             Подробнее
           </Link>

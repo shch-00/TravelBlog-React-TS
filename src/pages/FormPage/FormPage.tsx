@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { ResponsivePageWrapper } from "../../utils/motionConfigurations";
-import UserForm from "../../components/UserForm/UserForm";
+import UserForm from "../../components/UserForm";
 
 interface FormPageProps {
   page: "login" | "register" | "create-post" | "add-comment";

@@ -8,8 +8,7 @@ import "./HomePage.css";
 
 const HomePage: FC = () => {
   const { data: posts, isLoading } = usePosts();
-
-  console.log(posts);
+  const isLogged = Boolean(localStorage.getItem("token"));
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -25,9 +24,11 @@ const HomePage: FC = () => {
             </li>
           ))}
         </ul>
-        <Link to="/create-post" className="home-page__button btn" style={{}}>
-          Добавить мое путешествие
-        </Link>
+        {isLogged ? (
+          <Link to="/create-post" className="home-page__button btn" style={{}}>
+            Добавить мое путешествие
+          </Link>
+        ) : null}
       </div>
     </ResponsivePageWrapper>
   );

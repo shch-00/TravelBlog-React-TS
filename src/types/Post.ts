@@ -10,7 +10,7 @@ const PostSchema = z.object({
   excerpt: z.string().optional(),
   photo: PhotoFileSchema || PhotoStringSchema,
   description: z.string().optional(),
-  country: z.string().optional(),
+  county: z.string().optional(),
   city: z.string().optional(),
   comments: z.array(CommentSchema).optional(),
 });

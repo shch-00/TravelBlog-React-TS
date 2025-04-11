@@ -16,7 +16,6 @@ async function login(user: UserLogin) {
   }
 
   const data = await response.json();
-  console.log(data);
   localStorage.setItem("token", data.token);
   return data;
 }

@@ -2,7 +2,11 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import URL_API from "../api/URL_API";
 
 async function logout() {
-  const response = await fetch(`${URL_API}/logout`);
+  const response = await fetch(`${URL_API}/logout`, {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+    },
+  });
 
   if (!response.ok) {
     throw new Error("Failed to logout");
@@ -10,6 +14,7 @@ async function logout() {
 
   const data = await response.json();
   localStorage.removeItem("token");
+  localStorage.removeItem("photo");
   return data;
 }
 

@@ -3,7 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import { usePost } from "../../hooks/posts";
 import { useComments } from "../../hooks/comments";
 import { ResponsivePageWrapper } from "../../utils/motionConfigurations";
-import CommentsList from "../../components/CommentsList/CommentsList";
+import CommentsList from "../../components/CommentsList";
 import BackIcon from "../../assets/icons/Back.svg?react";
 import "./PostPage.css";
 
@@ -14,6 +14,7 @@ const PostPage: FC = () => {
     Number(id)
   );
   const containerRef = useRef<HTMLImageElement>(null);
+  const isLogged = Boolean(localStorage.getItem("token"));
 
   if (isPostLoading) {
     return <div>Loading...</div>;
@@ -43,9 +44,11 @@ const PostPage: FC = () => {
               <BackIcon className="post-page__button-icon btn__icon" />
               <span>Назад</span>
             </Link>
-            <Link className="post-page__button btn" to={`/add-comment/${id}`}>
-              Ваше впечатление об этом месте
-            </Link>
+            {isLogged ? (
+              <Link className="post-page__button btn" to={`/add-comment/${id}`}>
+                Ваше впечатление об этом месте
+              </Link>
+            ) : null}
           </div>
         </div>
       </div>

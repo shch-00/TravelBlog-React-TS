@@ -37,7 +37,7 @@ body.dark .page-container--account {
 }
 
 .page-container--post,
-body.dark .page-container--home {
+body.dark .page-container--post {
   padding: 0;
 }
 

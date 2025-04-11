@@ -8,6 +8,7 @@ interface TextareaProps {
   label?: string;
   required?: boolean;
   defaultValue?: string;
+  error?: string | undefined;
 }
 
 const Textarea: FC<TextareaProps> = ({
@@ -16,6 +17,7 @@ const Textarea: FC<TextareaProps> = ({
   label = "",
   required = false,
   defaultValue = "",
+  error = undefined,
 }) => {
   const [isFocused, setIsFocused] = useState(false);
   const [value, setValue] = useState(defaultValue);
@@ -39,6 +41,14 @@ const Textarea: FC<TextareaProps> = ({
         onFocus={() => setIsFocused(true)}
         onBlur={() => setIsFocused(false)}
       />
+      <motion.span
+        initial={{ opacity: 0 }}
+        animate={{ opacity: error ? (value === "" ? 1 : 0) : 0 }}
+        transition={{ duration: 0.3 }}
+        className="custom-input__error"
+      >
+        {error}
+      </motion.span>
       <motion.span
         className="custom-input__field-counter"
         initial={{ opacity: 0 }}

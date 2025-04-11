@@ -3,6 +3,7 @@
   flex-direction: column;
   gap: 10px;
   width: 100%;
+  position: relative;
 }
 .custom-input--short {
   width: 48%;
@@ -95,4 +96,19 @@ body.dark .custom-input__field::placeholder {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.custom-input__error {
+  position: absolute;
+  top: 100%;
+  left: 0;
+}
+.custom-input--textarea .custom-input__error {
+  transform: translateY(-100%);
+}
+
+.custom-input__wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
 }

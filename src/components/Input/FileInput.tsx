@@ -11,6 +11,7 @@ interface FileInputProps {
   className?: string;
   label?: string;
   icon?: React.ReactNode;
+  error?: string | undefined;
 }
 
 const FileInput: FC<FileInputProps> = ({
@@ -19,6 +20,7 @@ const FileInput: FC<FileInputProps> = ({
   required = false,
   className = "",
   label = "Загрузите ваше фото",
+  error = undefined,
   icon = null,
 }) => {
   const [value, setValue] = useState("");
@@ -102,6 +104,14 @@ const FileInput: FC<FileInputProps> = ({
           </motion.span>
         </AnimatePresence>
       </motion.label>
+      <motion.span
+        initial={{ opacity: 0 }}
+        animate={{ opacity: error ? (value === "" ? 1 : 0) : 0 }}
+        transition={{ duration: 0.3 }}
+        className="custom-input__error"
+      >
+        {error}
+      </motion.span>
       <input
         ref={fileInputRef}
         className="custom-input__field visually-hidden"

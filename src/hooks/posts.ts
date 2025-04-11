@@ -1,5 +1,5 @@
 import { useQuery, useMutation } from "@tanstack/react-query";
-import Post, { PostSchema } from "../types/Post";
+import Post from "../types/Post";
 import URL_API from "../api/URL_API";
 
 async function getPosts() {
@@ -19,7 +19,7 @@ async function addPost(post: Post) {
   const formData = new FormData();
   formData.append("title", post.title as string);
   formData.append("description", post.description as string);
-  formData.append("country", post.country as string);
+  formData.append("country", post.county as string);
   formData.append("city", post.city as string);
   formData.append("photo", post.photo as File);
 
@@ -43,7 +43,7 @@ const useAddPost = () => {
 async function getPost(id: number) {
   const response = await fetch(`${URL_API}/posts/${id}`);
   const data = await response.json();
-  return PostSchema.parse(data);
+  return data;
 }
 
 const usePost = (id: number) => {

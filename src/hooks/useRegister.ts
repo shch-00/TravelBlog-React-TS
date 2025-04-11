@@ -15,7 +15,6 @@ async function register(user: UserLogin) {
   }
 
   const data = await response.json();
-  console.log(data);
   return data;
 }
 

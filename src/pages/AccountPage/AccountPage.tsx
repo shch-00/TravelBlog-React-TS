@@ -2,11 +2,9 @@ import { FC, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useMe } from "../../hooks";
 import { ResponsivePageWrapper } from "../../utils/motionConfigurations";
-import useEditUser from "../../hooks/useEditUser";
+import { useChangePassword, useEditUser } from "../../hooks";
+import { Input, Textarea, FileInput } from "../../components/Input";
 import RetinaImg from "../../components/RetinaImg/RetinaImg";
-import Input from "../../components/Input/Input";
-import Textarea from "../../components/Input/Textarea";
-import FileInput from "../../components/Input/FileInput";
 import BackIcon from "../../assets/icons/Back.svg?react";
 import PhotoIcon from "../../assets/icons/Photo.svg?react";
 import EditIcon from "../../assets/icons/Edit.svg?react";
@@ -19,9 +17,12 @@ interface AccountPageProps {
 const AccountPage: FC<AccountPageProps> = ({ path }) => {
   const { data: user } = useMe();
   const { mutate: editUser } = useEditUser();
+  const { mutate: changePassword } = useChangePassword();
   const storedAvatar = localStorage.getItem("avatar") || null;
 
   const [avatar, setAvatar] = useState<string | null>(storedAvatar);
+  const [validationFormError, setValidationFormError] = useState(false);
+  const [validationPasswordError, setValidationPasswordError] = useState(false);
 
   useEffect(() => {
     const checkAvatar = () => {
@@ -51,13 +52,27 @@ const AccountPage: FC<AccountPageProps> = ({ path }) => {
     const formData = new FormData(e.currentTarget);
     const data = Object.fromEntries(formData);
 
-    editUser({
-      id: user?.id || "",
-      full_name: data.full_name as string,
-      city: data.city as string,
-      country: data.country as string,
-      bio: data.bio as string,
-    });
+    if (data.full_name === "" || data.bio === "" || data.city === "") {
+      setValidationFormError(true);
+      return;
+    } else {
+      setValidationFormError(false);
+    }
+
+    if (data.password !== "") {
+      if (data.password !== data.confirmPassword) {
+        setValidationPasswordError(true);
+        return;
+      }
+      changePassword(data.password as string);
+      setValidationPasswordError(false);
+    } else {
+      setValidationPasswordError(false);
+    }
+
+    if (!validationPasswordError && !validationFormError) {
+      editUser(data);
+    }
   };
 
   if (path === "account") {
@@ -121,9 +136,24 @@ const AccountPage: FC<AccountPageProps> = ({ path }) => {
           </div>
           <div className="account-page__form-wrapper">
             <div className="account-page__user-info account-page__user-info--form">
-              <Input label="ФИО" name="full_name" defaultValue={userName} />
-              <Input label="Город" name="city" defaultValue={userCity} />
-              <Textarea label="О себе" name="bio" defaultValue={userBio} />
+              <Input
+                label="ФИО"
+                name="full_name"
+                defaultValue={userName}
+                error={validationFormError ? "Введите ФИО" : undefined}
+              />
+              <Input
+                label="Город"
+                name="city"
+                defaultValue={userCity}
+                error={validationFormError ? "Введите город" : undefined}
+              />
+              <Textarea
+                label="О себе"
+                name="bio"
+                defaultValue={userBio}
+                error={validationFormError ? "Расскажите о себе" : undefined}
+              />
             </div>
             <div className="account-page__password-wrapper">
               <h2 className="account-page__password-title">Смена пароля</h2>
@@ -133,6 +163,9 @@ const AccountPage: FC<AccountPageProps> = ({ path }) => {
                   name="password"
                   type="password"
                   placeholder="Новый пароль"
+                  error={
+                    validationPasswordError ? "Пароли не совпадают" : undefined
+                  }
                   short
                 />
                 <Input
@@ -140,6 +173,9 @@ const AccountPage: FC<AccountPageProps> = ({ path }) => {
                   name="confirmPassword"
                   type="password"
                   placeholder="Подтвердить пароль"
+                  error={
+                    validationPasswordError ? "Пароли не совпадают" : undefined
+                  }
                   short
                 />
               </div>
