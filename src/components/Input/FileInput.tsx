@@ -1,22 +1,33 @@
 import { FC, useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useLocation } from "react-router-dom";
+import useUploadAvatar from "../../hooks/useUploadAvatar";
 
 interface FileInputProps {
   type?: string;
   placeholder?: string;
   name?: string;
   required?: boolean;
+  className?: string;
+  label?: string;
+  icon?: React.ReactNode;
 }
 
 const FileInput: FC<FileInputProps> = ({
   placeholder = "",
   name = "",
   required = false,
+  className = "",
+  label = "Загрузите ваше фото",
+  icon = null,
 }) => {
   const [value, setValue] = useState("");
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [isFileSelected, setIsFileSelected] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
+  const location = useLocation();
+
+  const { mutate: uploadAvatar, isPending: isUploading } = useUploadAvatar();
 
   const handleLabelClick = () => {
     fileInputRef.current?.click();
@@ -25,15 +36,33 @@ const FileInput: FC<FileInputProps> = ({
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
     setIsFileSelected(true);
+    const file = e.target.files?.[0] as File;
+    handleAvatarChange(file);
+  };
+
+  const handleAvatarChange = (file: File) => {
+    uploadAvatar(file, {
+      onSuccess: (url: string) => {
+        if (location.pathname.startsWith("/account")) {
+          localStorage.setItem("avatar", url as string);
+        } else {
+          localStorage.setItem("photo", url as string);
+        }
+      },
+    });
   };
 
   return (
     <div className="custom-input custom-input--file">
       <motion.label
         htmlFor={name}
-        className={`custom-input__label ${
-          isHovered ? "custom-input__label--hovered" : ""
-        }`}
+        className={
+          className
+            ? className
+            : `custom-input__label ${
+                isHovered ? "custom-input__label--hovered" : ""
+              }`
+        }
         onClick={handleLabelClick}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
@@ -44,7 +73,11 @@ const FileInput: FC<FileInputProps> = ({
           duration: 0.3,
           ease: "easeInOut",
         }}
+        style={{
+          margin: location.pathname === "/create-post" ? "0" : "0 auto",
+        }}
       >
+        {icon && <div className="custom-input__icon">{icon}</div>}
         <AnimatePresence mode="wait">
           <motion.span
             key={
@@ -55,15 +88,17 @@ const FileInput: FC<FileInputProps> = ({
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{
-              duration: 0.2,
+              duration: 0.3,
               ease: "easeInOut",
             }}
           >
             {isFileSelected
               ? isHovered
                 ? "Выбрать другое фото?"
-                : "Фотография выбрана"
-              : "Загрузите ваше фото"}
+                : isUploading
+                  ? "Сохранение..."
+                  : "Фотография выбрана"
+              : label}
           </motion.span>
         </AnimatePresence>
       </motion.label>

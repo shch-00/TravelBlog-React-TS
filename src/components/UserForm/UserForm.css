@@ -26,18 +26,14 @@
   width: 100%;
 }
 
-.user-form__button--link,
-body.dark .user-form__button--link {
-  background-color: transparent;
-  color: var(--color-primary);
-  border: 2px solid var(--color-primary);
-  transition:
-    border-color 0.3s ease-in-out,
-    color 0.3s ease-in-out;
+.user-form__upload-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
 }
-.user-form__button--link:hover,
-body.dark .user-form__button--link:hover {
-  border-color: var(--color-secondary);
-  color: var(--color-secondary);
-  background-color: transparent;
+
+.user-form__button-icon {
+  width: 1em;
+  height: 1em;
 }

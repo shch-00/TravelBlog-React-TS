@@ -1,5 +1,5 @@
-import { useMutation } from "@tanstack/react-query";
-import { UserLogin, UserLoginSchema } from "../types/User";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { UserLogin } from "../types/User";
 import URL_API from "../api/URL_API";
 
 async function login(user: UserLogin) {
@@ -16,13 +16,18 @@ async function login(user: UserLogin) {
   }
 
   const data = await response.json();
+  console.log(data);
   localStorage.setItem("token", data.token);
-  return UserLoginSchema.parse(data);
+  return data;
 }
 
 const useLogin = () => {
-  return useMutation<UserLogin, Error, UserLogin>({
+  const queryClient = useQueryClient();
+  return useMutation({
     mutationFn: (user: UserLogin) => login(user),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["me"] });
+    },
   });
 };
 

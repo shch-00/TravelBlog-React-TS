@@ -9,6 +9,7 @@ interface InputProps {
   label?: string;
   short?: boolean;
   required?: boolean;
+  defaultValue?: string;
 }
 
 const Input: FC<InputProps> = ({
@@ -18,9 +19,10 @@ const Input: FC<InputProps> = ({
   label = "",
   short = false,
   required = false,
+  defaultValue = "",
 }) => {
   const [isFocused, setIsFocused] = useState(false);
-  const [value, setValue] = useState("");
+  const [value, setValue] = useState<string>(defaultValue);
   return (
     <div
       className={`custom-input ${short ? "custom-input--short" : ""} ${

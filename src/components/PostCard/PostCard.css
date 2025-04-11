@@ -13,7 +13,8 @@
 .post-card__img-content {
   position: relative;
   width: 100%;
-  height: 288px;
+  max-height: 288px;
+  height: auto;
 }
 
 .post-card__img-wrapper {

@@ -3,16 +3,26 @@ import { FC, useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useColorMode } from "../../contexts/ColorModeContext";
 import { useMe } from "../../hooks";
+import TriangleIcon from "../../assets/icons/triangle.svg?react";
 import RetinaImg from "../RetinaImg/RetinaImg";
 import LogoIcon from "../../assets/logo.svg?react";
+import useLogout from "../../hooks/useLogout";
 import "./Header.css";
 
 const Header: FC = () => {
   const path = useLocation().pathname;
   const [isHomePage, setIsHomePage] = useState(false);
+  const [isUserTooltipOpen, setIsUserTooltipOpen] = useState(false);
   const { colorMode: storedColorMode, toggleColorMode } = useColorMode();
   const colorMode = localStorage.getItem("colorMode") || storedColorMode;
   const { data: user, isLoading: isUserLoading } = useMe();
+  const { mutate: logout } = useLogout();
+  const avatar = localStorage.getItem("avatar") || user?.photo || "";
+
+  const handleLogout = () => {
+    logout();
+    setIsUserTooltipOpen(false);
+  };
 
   useEffect(() => {
     setIsHomePage(path === "/");
@@ -67,12 +77,66 @@ const Header: FC = () => {
                   Сменить тему
                 </button>
                 {user ? (
-                  <button
-                    className="header__button"
-                    onClick={() => console.log(user)}
-                  >
-                    {user.full_name}
-                  </button>
+                  <>
+                    <button
+                      className="header__button"
+                      onClick={() => {
+                        setIsUserTooltipOpen(!isUserTooltipOpen);
+                      }}
+                    >
+                      {user.full_name ? (
+                        <div className="header__user-inner">
+                          <img
+                            src={avatar}
+                            alt="avatar"
+                            className="header__user-avatar"
+                            width={30}
+                            height={30}
+                          />
+                          <span className="header__user-name">
+                            {user.full_name}
+                          </span>
+                          <TriangleIcon
+                            className={`header__user-arrow ${
+                              isUserTooltipOpen
+                                ? "header__user-arrow--open"
+                                : ""
+                            }`}
+                          />
+                        </div>
+                      ) : (
+                        "Пользователь"
+                      )}
+                    </button>
+
+                    <motion.div
+                      className="header__user-tooltip"
+                      initial={{ opacity: 0, y: 10, pointerEvents: "none" }}
+                      animate={{
+                        opacity: isUserTooltipOpen ? 1 : 0,
+                        y: 0,
+                        pointerEvents: isUserTooltipOpen ? "auto" : "none",
+                      }}
+                      exit={{ opacity: 0, y: 10, pointerEvents: "none" }}
+                      transition={{ duration: 0.3, ease: "easeOut" }}
+                    >
+                      <Link
+                        className="header__tooltip-button"
+                        to="/account"
+                        onClick={() => {
+                          setIsUserTooltipOpen(false);
+                        }}
+                      >
+                        Профиль
+                      </Link>
+                      <button
+                        className="header__tooltip-button"
+                        onClick={handleLogout}
+                      >
+                        Выйти
+                      </button>
+                    </motion.div>
+                  </>
                 ) : isUserLoading ? (
                   <span className="header__button header__button--loading">
                     Вход...

@@ -7,6 +7,7 @@ interface TextareaProps {
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   label?: string;
   required?: boolean;
+  defaultValue?: string;
 }
 
 const Textarea: FC<TextareaProps> = ({
@@ -14,9 +15,10 @@ const Textarea: FC<TextareaProps> = ({
   name = "",
   label = "",
   required = false,
+  defaultValue = "",
 }) => {
   const [isFocused, setIsFocused] = useState(false);
-  const [value, setValue] = useState("");
+  const [value, setValue] = useState(defaultValue);
   return (
     <div
       className={`custom-input custom-input--textarea ${

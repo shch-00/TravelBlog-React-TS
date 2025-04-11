@@ -17,7 +17,7 @@ const ResponsivePageWrapper = ({ children }: { children: React.ReactNode }) => {
         style={{ flexGrow: 1, display: "flex" }}
       >
         <div
-          className={`page-container ${location.pathname === "/" ? "page-container--home" : ""}`}
+          className={`page-container ${location.pathname === "/" ? "page-container--home" : isNaN(Number(location.pathname.split("/")[1])) ? "" : "page-container--post"} ${location.pathname.startsWith("/account") ? "page-container--account" : ""}`}
         >
           {children}
         </div>

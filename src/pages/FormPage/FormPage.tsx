@@ -3,7 +3,8 @@ import { ResponsivePageWrapper } from "../../utils/motionConfigurations";
 import UserForm from "../../components/UserForm/UserForm";
 
 interface FormPageProps {
-  page: "login" | "register" | "create-post";
+  page: "login" | "register" | "create-post" | "add-comment";
+  id?: string;
 }
 
 const FormPage: FC<FormPageProps> = ({ page }) => {

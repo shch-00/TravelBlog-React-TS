@@ -91,6 +91,7 @@
   display: flex;
   align-items: center;
   gap: 48px;
+  position: relative;
 }
 
 .header__button {
@@ -135,4 +136,54 @@
   margin: 0;
   padding: 0;
   color: #fff;
+}
+
+.header__user-tooltip {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background-color: #fff;
+  padding: 8px;
+  border-radius: 2px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.header__user-inner {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.header__user-avatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.header__tooltip-button {
+  background-color: transparent;
+  border: none;
+  color: #262626;
+  font-size: 1em;
+  line-height: 1.83;
+  font-weight: 400;
+  cursor: pointer;
+  padding: 0;
+  transition: color 0.3s ease;
+}
+.header__tooltip-button:hover {
+  color: var(--color-secondary);
+}
+
+.header__user-arrow {
+  transform: rotate(180deg);
+  transition: transform 0.3s ease;
+}
+
+.header__user-arrow--open {
+  transform: rotate(0deg);
 }

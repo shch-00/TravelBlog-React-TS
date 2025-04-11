@@ -1,13 +1,21 @@
 import { useQuery } from "@tanstack/react-query";
-import { User, UserSchema } from "../types/User";
+import { User } from "../types/User";
+import URL_API from "../api/URL_API";
 
 async function fetchMe() {
-  const response = await fetch("https://travelblog.skillbox.cc/api/user", {
-    credentials: "include",
+  const response = await fetch(`${URL_API}/user`, {
     method: "GET",
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+    },
   });
+
+  if (!response.ok) {
+    throw new Error("Failed to fetch user");
+  }
+
   const data = await response.json();
-  return UserSchema.parse(data);
+  return data;
 }
 
 const useMe = () => {

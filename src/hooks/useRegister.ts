@@ -1,7 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
-import User from "src/types/User";
+import { UserLogin } from "../types/User";
 
-async function register(user: User) {
+async function register(user: UserLogin) {
   const response = await fetch("https://travelblog.skillbox.cc/api/register", {
     method: "POST",
     headers: {
@@ -21,7 +21,7 @@ async function register(user: User) {
 
 const useRegister = () => {
   return useMutation({
-    mutationFn: (user: User) => register(user),
+    mutationFn: (user: UserLogin) => register(user),
   });
 };
 

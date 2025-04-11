@@ -20,11 +20,12 @@ async function addPost(post: Post) {
     method: "POST",
     body: JSON.stringify(post),
     headers: {
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
       "Content-Type": "application/json",
     },
   });
   const data = await response.json();
-  return PostSchema.parse(data);
+  return data;
 }
 
 const useAddPost = () => {

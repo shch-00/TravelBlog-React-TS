@@ -1,0 +1,150 @@
+.account-page {
+  position: relative;
+  display: flex;
+  gap: 30px;
+  width: 100%;
+}
+
+.account-page__form {
+  display: flex;
+  gap: 30px;
+  width: 100%;
+}
+
+.account-page__img-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.account-page__form-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+
+  flex-grow: 1;
+}
+
+.account-page__user-avatar {
+  max-width: 240px;
+  width: 240px;
+  height: 240px;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+.account-page__user-avatar-wrapper {
+  max-height: 240px;
+}
+
+.account-page__user-avatar-button {
+  border: none;
+  background-color: transparent;
+  color: var(--color-primary);
+  font-size: 1em;
+  line-height: 1.5;
+  cursor: pointer;
+  padding: 0;
+  text-decoration: underline;
+  transition: color 0.3s ease;
+}
+
+.account-page__user-avatar-button:hover {
+  color: var(--color-secondary);
+}
+
+.account-page__user-info {
+  display: flex;
+  flex-direction: column;
+  color: #000;
+  transition: color 0.3s ease;
+}
+body.dark .account-page__user-info {
+  color: #fff;
+}
+
+.account-page__user-info--form {
+  gap: 30px;
+}
+
+.account-page__user-name {
+  font-weight: 600;
+  font-size: 2em;
+  line-height: 1;
+  margin: 0 0 5px;
+}
+
+.account-page__user-info-inner {
+  display: flex;
+  flex-direction: column;
+}
+
+.account-page__user-info-inner:not(:last-child) {
+  margin: 0 0 30px;
+}
+
+.account-page__user-info-label {
+  font-size: 0.875em;
+  line-height: 1.5em;
+  color: rgba(0, 0, 0, 0.85);
+  transition: color 0.3s ease;
+}
+body.dark .account-page__user-info-label {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.account-page__user-bio {
+  font-size: 1em;
+  line-height: 1;
+}
+
+.account-page__user-edit-button {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.account-page__password-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.account-page__password-title {
+  font-size: 1.25em;
+  line-height: 1.5em;
+  font-weight: 600;
+}
+
+.account-page__password-fields {
+  display: flex;
+  gap: 20px;
+  justify-content: space-between;
+}
+
+.account-page__form-buttons {
+  display: flex;
+  gap: 20px;
+  justify-content: space-between;
+}
+
+.account-page__user-avatar-button {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.account-page__user-avatar-button-icon {
+  width: 2em;
+  height: 2em;
+}
+
+.account-page__user-edit-button-icon {
+  width: 2em;
+  height: 2em;
+  color: #bdbdbd;
+  transition: color 0.3s ease;
+}
+.account-page__user-edit-button:hover .account-page__user-edit-button-icon {
+  color: var(--color-secondary);
+}

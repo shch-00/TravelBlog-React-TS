@@ -2,10 +2,10 @@ import { z } from "zod";
 import { CommentSchema } from "./Comment";
 
 const PostSchema = z.object({
-  id: z.number(),
-  title: z.string(),
+  id: z.number().optional(),
+  title: z.string().optional(),
   excerpt: z.string().optional(),
-  photo: z.string(),
+  photo: z.instanceof(File).optional(),
   description: z.string().optional(),
   country: z.string().optional(),
   city: z.string().optional(),

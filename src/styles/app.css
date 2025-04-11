@@ -28,13 +28,23 @@ body.dark .page-container {
 }
 
 .page-container--home,
-body.dark .page-container--home {
+.page-container--account,
+body.dark .page-container--home,
+body.dark .page-container--account {
   padding: 0 40px;
   background-color: transparent;
   border: none;
 }
 
+.page-container--post,
+body.dark .page-container--home {
+  padding: 0;
+}
+
 .btn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
   border-radius: 10px;
   padding: 20px 30px;
   font-weight: 600;
@@ -45,6 +55,7 @@ body.dark .page-container--home {
     background-color 0.3s ease,
     color 0.3s ease,
     border-color 0.3s ease;
+  height: auto;
 }
 .btn:not(.btn.btn--link) {
   background-color: var(--color-primary);
@@ -56,6 +67,32 @@ body.dark .page-container--home {
 }
 body.dark .btn:not(.btn.btn--link) {
   color: #141414;
+}
+
+.btn--link,
+body.dark .btn--link {
+  background-color: transparent;
+  color: var(--color-primary);
+  border: 2px solid var(--color-primary);
+  transition:
+    border-color 0.3s ease-in-out,
+    color 0.3s ease-in-out;
+}
+.btn--link:hover,
+body.dark .btn--link:hover {
+  border-color: var(--color-secondary);
+  color: var(--color-secondary);
+  background-color: transparent;
+}
+
+.btn__icon {
+  width: 1.5em;
+  height: 1.5em;
+  transform: scale(1);
+  transition: transform 0.3s ease;
+}
+.btn:hover .btn__icon {
+  transform: scale(1.2);
 }
 
 .visually-hidden {
