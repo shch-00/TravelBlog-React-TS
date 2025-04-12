@@ -14,7 +14,6 @@ async function logout() {
 
   const data = await response.json();
   localStorage.removeItem("token");
-  localStorage.removeItem("photo");
   return data;
 }
 

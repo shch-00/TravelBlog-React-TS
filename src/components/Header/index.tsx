@@ -3,6 +3,7 @@ import { FC, useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useColorMode } from "../../contexts/ColorModeContext";
 import { useMe } from "../../hooks";
+import { URL_API_IMG } from "../../api/URL_API";
 import TriangleIcon from "../../assets/icons/triangle.svg?react";
 import RetinaImg from "../RetinaImg/RetinaImg";
 import LogoIcon from "../../assets/logo.svg?react";
@@ -17,7 +18,7 @@ const Header: FC = () => {
   const colorMode = localStorage.getItem("colorMode") || storedColorMode;
   const { data: user, isLoading: isUserLoading } = useMe();
   const { mutate: logout } = useLogout();
-  const avatar = localStorage.getItem("avatar") || user?.photo || "";
+  const avatar = `${URL_API_IMG}${user?.photo}` || "";
 
   const handleLogout = () => {
     logout();
@@ -86,13 +87,15 @@ const Header: FC = () => {
                     >
                       {user.full_name ? (
                         <div className="header__user-inner">
-                          <img
-                            src={avatar}
-                            alt="avatar"
-                            className="header__user-avatar"
-                            width={30}
-                            height={30}
-                          />
+                          {user.photo ? (
+                            <img
+                              src={avatar as string}
+                              alt="avatar"
+                              className="header__user-avatar"
+                              width={30}
+                              height={30}
+                            />
+                          ) : null}
                           <span className="header__user-name">
                             {user.full_name}
                           </span>

@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { PhotoFileSchema, PhotoStringSchema } from "./Photo";
 
 const UserLoginSchema = z.object({
   email: z.string().email(),
@@ -14,7 +15,7 @@ const UserSchema = z.object({
   city: z.string().min(3).max(255).optional(),
   country: z.string().min(3).max(255).optional(),
   bio: z.string().max(2000).optional(),
-  photo: z.string().optional(),
+  photo: PhotoFileSchema || PhotoStringSchema,
 });
 
 type User = z.infer<typeof UserSchema>;

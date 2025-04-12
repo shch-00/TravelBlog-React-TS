@@ -1,9 +1,10 @@
-import { FC, useEffect, useState } from "react";
+import { FC, useState } from "react";
 import { Link } from "react-router-dom";
 import { useMe } from "../../hooks";
 import { ResponsivePageWrapper } from "../../utils/motionConfigurations";
 import { useChangePassword, useEditUser } from "../../hooks";
 import { Input, Textarea, FileInput } from "../../components/Input";
+import { URL_API_IMG } from "../../api/URL_API";
 import RetinaImg from "../../components/RetinaImg/RetinaImg";
 import BackIcon from "../../assets/icons/Back.svg?react";
 import PhotoIcon from "../../assets/icons/Photo.svg?react";
@@ -18,26 +19,9 @@ const AccountPage: FC<AccountPageProps> = ({ path }) => {
   const { data: user } = useMe();
   const { mutate: editUser } = useEditUser();
   const { mutate: changePassword } = useChangePassword();
-  const storedAvatar = localStorage.getItem("avatar") || null;
-
-  const [avatar, setAvatar] = useState<string | null>(storedAvatar);
   const [validationFormError, setValidationFormError] = useState(false);
   const [validationPasswordError, setValidationPasswordError] = useState(false);
-
-  useEffect(() => {
-    const checkAvatar = () => {
-      const newAvatar = localStorage.getItem("avatar");
-      if (newAvatar !== avatar) {
-        setAvatar(newAvatar);
-      }
-    };
-
-    const interval = setInterval(checkAvatar, 100);
-
-    return () => {
-      clearInterval(interval);
-    };
-  }, [avatar]);
+  const avatar = `${URL_API_IMG}${user?.photo}` || "";
 
   const userName = user?.full_name || "Пользователь";
   const userBio = user?.bio || "Нет информации о пользователе";

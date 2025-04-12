@@ -3,6 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import { usePost } from "../../hooks/posts";
 import { useComments } from "../../hooks/comments";
 import { ResponsivePageWrapper } from "../../utils/motionConfigurations";
+import { URL_API_IMG } from "../../api/URL_API";
 import CommentsList from "../../components/CommentsList";
 import BackIcon from "../../assets/icons/Back.svg?react";
 import "./PostPage.css";
@@ -15,6 +16,7 @@ const PostPage: FC = () => {
   );
   const containerRef = useRef<HTMLImageElement>(null);
   const isLogged = Boolean(localStorage.getItem("token"));
+  const postImage = `${URL_API_IMG}${post?.photo}` || "";
 
   if (isPostLoading) {
     return <div>Loading...</div>;
@@ -24,7 +26,11 @@ const PostPage: FC = () => {
     <ResponsivePageWrapper>
       <div className="post-page" ref={containerRef}>
         <img
-          src={`https://placehold.co/1200x450?text=${post?.title}`}
+          src={
+            postImage
+              ? postImage
+              : `https://placehold.co/1200x450?text=${post?.title}`
+          }
           alt={post?.title}
           className="post-page__image"
         />

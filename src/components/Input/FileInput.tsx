@@ -1,7 +1,8 @@
 import { FC, useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useLocation } from "react-router-dom";
-import useUploadAvatar from "../../hooks/useUploadAvatar";
+import { useQueryClient } from "@tanstack/react-query";
+import { useEditUser } from "../../hooks";
 
 interface FileInputProps {
   type?: string;
@@ -28,8 +29,13 @@ const FileInput: FC<FileInputProps> = ({
   const [isFileSelected, setIsFileSelected] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const location = useLocation();
+  const queryClient = useQueryClient();
 
-  const { mutate: uploadAvatar, isPending: isUploading } = useUploadAvatar();
+  const user = queryClient.getQueriesData({ queryKey: ["me"] })[0][1] || {};
+
+  console.log(user);
+
+  const { mutate: editUser, isPending: isUserEditing } = useEditUser();
 
   const handleLabelClick = () => {
     fileInputRef.current?.click();
@@ -39,19 +45,17 @@ const FileInput: FC<FileInputProps> = ({
     setValue(e.target.value);
     setIsFileSelected(true);
     const file = e.target.files?.[0] as File;
-    handleAvatarChange(file);
-  };
-
-  const handleAvatarChange = (file: File) => {
-    uploadAvatar(file, {
-      onSuccess: (url: string) => {
-        if (location.pathname.startsWith("/account")) {
-          localStorage.setItem("avatar", url as string);
-        } else {
-          localStorage.setItem("photo", url as string);
-        }
+    editUser(
+      {
+        ...user,
+        photo: file as File,
       },
-    });
+      {
+        onSuccess: () => {
+          queryClient.invalidateQueries({ queryKey: ["me"] });
+        },
+      }
+    );
   };
 
   return (
@@ -97,7 +101,7 @@ const FileInput: FC<FileInputProps> = ({
             {isFileSelected
               ? isHovered
                 ? "Выбрать другое фото?"
-                : isUploading
+                : isUserEditing
                   ? "Сохранение..."
                   : "Фотография выбрана"
               : label}

@@ -1,8 +1,6 @@
 import { z } from "zod";
 import { CommentSchema } from "./Comment";
-
-const PhotoFileSchema = z.instanceof(File).optional();
-const PhotoStringSchema = z.string().optional();
+import { PhotoFileSchema, PhotoStringSchema } from "./Photo";
 
 const PostSchema = z.object({
   id: z.number().optional(),

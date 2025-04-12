@@ -1,6 +1,7 @@
 import { FC } from "react";
 import { useColorMode } from "../../contexts/ColorModeContext";
 import { Link } from "react-router-dom";
+import { URL_API_IMG } from "../../api/URL_API";
 import RetinaImg from "../RetinaImg/RetinaImg";
 import Post from "../../types/Post";
 import "./PostCard.css";
@@ -13,13 +14,17 @@ const PostCard: FC<PostCardProps> = ({ post }) => {
   const { colorMode: storedColorMode } = useColorMode();
   const colorMode = localStorage.getItem("colorMode") || storedColorMode;
 
+  const photo = post.photo
+    ? post.photo
+    : "https://placehold.co/370x300/FFA902/black?text=${post.title}&font=poppins/jpeg";
+
   return (
     <div
       className={`post-card ${colorMode === "dark" ? "post-card--dark" : ""}`}
     >
       <div className="post-card__img-content">
         <RetinaImg
-          src={`https://placehold.co/370x300/FFA902/black?text=${post.title}&font=poppins/jpeg`}
+          src={post.photo ? `${URL_API_IMG}${photo}` : (photo as string)}
           alt={post.title as string}
           width={370}
           height={300}
