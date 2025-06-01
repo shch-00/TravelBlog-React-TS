@@ -1,54 +1,97 @@
-# React + TypeScript + Vite
+# Travel Blog (React + TypeScript)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 📝 Описание проекта
 
-Currently, two official plugins are available:
+Travel Blog - это современное веб-приложение для путешественников, разработанное с использованием React и TypeScript. Проект построен на современном стеке технологий и предоставляет пользователям возможность делиться своими путешествиями и впечатлениями.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Технологии
 
-## Expanding the ESLint configuration
+- React 19
+- TypeScript 4.9
+- Vite 6.2
+- React Router DOM 7
+- React Query (TanStack Query)
+- React Hook Form
+- Framer Motion
+- Zod (валидация)
+- ESLint + Prettier (форматирование кода)
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 📋 Требования
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+- Node.js (LTS версия)
+- npm или yarn
+
+## 🛠 Установка и запуск
+
+1. Клонируйте репозиторий:
+```bash
+git clone https://github.com/your-username/TravelBlog-React-TS.git
+cd TravelBlog-React-TS
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+2. Установите зависимости:
+```bash
+npm install
+# или
+yarn install
 ```
+
+3. Запустите проект в режиме разработки:
+```bash
+npm run dev
+# или
+yarn dev
+```
+
+4. Откройте [http://localhost:5173](http://localhost:5173) в вашем браузере
+
+## 📁 Структура проекта
+
+```
+src/
+├── api/         # API интеграции и запросы
+├── assets/      # Статические ресурсы (изображения, шрифты)
+├── components/  # Переиспользуемые компоненты
+├── contexts/    # React контексты
+├── hooks/       # Пользовательские хуки
+├── pages/       # Компоненты страниц
+├── styles/      # Стили и темы
+├── types/       # TypeScript типы и интерфейсы
+├── utils/       # Вспомогательные функции
+├── App.tsx      # Корневой компонент приложения
+└── main.tsx     # Точка входа
+```
+
+## 🔧 Доступные скрипты
+
+- `npm run dev` - Запуск проекта в режиме разработки
+- `npm run build` - Сборка проекта для продакшена
+- `npm run preview` - Предварительный просмотр собранного проекта
+- `npm run lint` - Проверка кода с помощью ESLint
+- `npm run format` - Форматирование кода с помощью Prettier
+
+## 🔒 Линтинг и форматирование
+
+Проект использует:
+- ESLint для проверки кода
+- Prettier для форматирования
+- TypeScript для статической типизации
+
+## 🤝 Вклад в проект
+
+1. Форкните репозиторий
+2. Создайте ветку для ваших изменений
+3. Внесите изменения
+4. Создайте Pull Request
+
+## 📄 Лицензия
+
+MIT
+
+## 👥 Авторы
+
+- Maksim Shcherbinin - [GitHub](https://github.com/your-username)
+
+## 📞 Контакты
+
+Если у вас есть вопросы или предложения, пожалуйста, создайте Issue в репозитории проекта.
