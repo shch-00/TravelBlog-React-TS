@@ -1,0 +1,34 @@
+.comments-list {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.comments-list__item {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.comments-list__author {
+  display: flex;
+  flex-direction: column;
+}
+
+.comments-list__author-name {
+  font-weight: 600;
+  font-size: 1em;
+  line-height: 1.5;
+}
+
+.comments-list__author-date {
+  font-size: 0.9em;
+  line-height: 1.5;
+  color: #868383;
+}
+
+.comments-list__comment {
+  font-size: 1em;
+  line-height: 1.5;
+}

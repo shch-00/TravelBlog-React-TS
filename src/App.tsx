@@ -1,35 +1,86 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { Routes, Route, Navigate } from "react-router-dom";
+import { motion } from "framer-motion";
+import HomePage from "./pages/HomePage/HomePage";
+import PostPage from "./pages/PostPage/PostPage";
+import AccountPage from "./pages/AccountPage/AccountPage";
+import FormPage from "./pages/FormPage/FormPage";
+import Header from "./components/Header";
+
+import "./styles/app.css";
 
 function App() {
-  const [count, setCount] = useState(0)
-
+  const isUserLogged = Boolean(localStorage.getItem("token"));
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <Header />
+      <motion.main layout>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/:id" element={<PostPage />} />
+          <Route
+            path="/login"
+            element={
+              isUserLogged ? (
+                <Navigate to="/account" replace />
+              ) : (
+                <FormPage page="login" />
+              )
+            }
+          />
+          <Route
+            path="/register"
+            element={
+              isUserLogged ? (
+                <Navigate to="/account" replace />
+              ) : (
+                <FormPage page="register" />
+              )
+            }
+          />
+          <Route
+            path="/add-comment/:id"
+            element={
+              isUserLogged ? (
+                <FormPage page="add-comment" />
+              ) : (
+                <Navigate to="/" replace />
+              )
+            }
+          />
+          <Route
+            path="/create-post"
+            element={
+              isUserLogged ? (
+                <FormPage page="create-post" />
+              ) : (
+                <Navigate to="/" replace />
+              )
+            }
+          />
+          <Route
+            path="/account"
+            element={
+              isUserLogged ? (
+                <AccountPage path="account" />
+              ) : (
+                <Navigate to="/" replace />
+              )
+            }
+          />
+          <Route
+            path="/account-edit"
+            element={
+              isUserLogged ? (
+                <AccountPage path="account-edit" />
+              ) : (
+                <Navigate to="/" replace />
+              )
+            }
+          />
+        </Routes>
+      </motion.main>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
