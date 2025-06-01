@@ -38,6 +38,7 @@ const LoginForm = () => {
       {
         onSuccess: () => {
           navigate("/");
+          window.location.reload();
         },
       }
     );
