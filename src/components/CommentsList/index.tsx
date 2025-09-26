@@ -18,7 +18,8 @@ const CommentsList = ({ comments }: CommentsListProps) => {
               {comment.author_name}
             </h3>
             <p className="comments-list__author-date">
-              {new Date(comment.created_at).toLocaleDateString()}
+              {comment.created_at &&
+                new Date(comment.created_at).toLocaleDateString()}
             </p>
           </div>
           <p className="comments-list__comment">{comment.comment}</p>

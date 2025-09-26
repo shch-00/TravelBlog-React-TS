@@ -59,6 +59,8 @@
   font-size: 15px;
   line-height: 1.83;
   color: rgba(130, 130, 130, 0.8);
+  text-wrap: wrap;
+  word-wrap: break-word;
 }
 
 .post-card__inner-bottom {

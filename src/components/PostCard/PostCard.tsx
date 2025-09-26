@@ -34,7 +34,7 @@ const PostCard: FC<PostCardProps> = ({ post }) => {
       <div className="post-card__content">
         <div className="post-card__inner-top">
           <h3 className="post-card__title">{post.title}</h3>
-          <p className="post-card__excerpt">{post.excerpt}</p>
+          <p className="post-card__excerpt">{post.excerpt && post.excerpt.length > 200 ? post.excerpt.substring(0, 200) + "..." : post.excerpt}</p>
         </div>
         <div className="post-card__inner-bottom">
           <span className="post-card__place">{`${post.county ? post.county + ", " : ""}${post.city ? post.city : ""}`}</span>
